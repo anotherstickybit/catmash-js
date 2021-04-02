@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import {Header} from "./component/Header";
+import {Content} from "./component/Content";
+import {Container, makeStyles, Paper, Typography} from "@material-ui/core";
+import {Route, Router} from "react-router";
+import {Results} from "./component/Results";
+
+const useStyles = makeStyles({
+    root: {
+        height: '900px'
+    },
+    text: {
+        marginTop: '10px'
+    }
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const classes = useStyles();
+
+    return (
+        <div>
+            <Container maxWidth={"xl"}>
+                <Paper elevation={3} className={classes.root}>
+                    <Header/>
+
+                    <Route path={"/results"} render={() => <Results />} />
+                    <Route exact path={"/"} render={() => <Content /> } />
+                </Paper>
+            </Container>
+        </div>
+    );
 }
 
 export default App;
