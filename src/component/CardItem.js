@@ -14,9 +14,10 @@ const useStyles = makeStyles({
 export const CardItem = (props) => {
     const classes = useStyles();
 
+
     return (
         <div>
-            <Card className={classes.root}>
+            <Card className={classes.root} onClick={() => props.clicked(props.cat.id)}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}

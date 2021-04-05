@@ -1,16 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../App.css';
 import {
-    Button,
-    Card,
-    CardActionArea,
-    CardActions,
-    CardContent,
-    CardMedia,
     makeStyles,
     Typography
 } from "@material-ui/core";
 import {CardItem} from "./CardItem";
+import axios from "axios";
 
 
 const useStyles = makeStyles({
@@ -40,8 +35,23 @@ export const Content = () => {
         }
     ])
 
-    const clicked = () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios(
+                'http://localhost:8080/cats/pair',
+            );
+            setCompare(result.data);
 
+        };
+        fetchData();
+    }, []);
+
+    const clicked = (id) => {
+        axios.post('http://localhost:8080/cats/vote/' + id).then((response) => {
+            if (response.status === 200) {
+                alert('GOOD');
+            }
+        })
     }
 
     return (
@@ -51,10 +61,10 @@ export const Content = () => {
             </Typography>
             <div id={"grid"}>
                 <div>
-                    <CardItem cat={compare[0]}/>
+                    <CardItem cat={compare[0]} clicked={clicked}/>
                 </div>
                 <div>
-                    <CardItem cat={compare[1]}/>
+                    <CardItem cat={compare[1]} clicked={clicked}/>
                 </div>
             </div>
         </div>
