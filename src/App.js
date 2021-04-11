@@ -9,7 +9,8 @@ import {Register} from "./component/Register";
 
 const useStyles = makeStyles({
     root: {
-        height: '900px'
+        // minHeight: '98vh',
+        height: '100vh',
     },
     text: {
         marginTop: '10px'
@@ -26,7 +27,7 @@ function App() {
                     <Header/>
                     <Route exact path={"/"} render={() => <Register />} />
                     <Route path={"/results"} render={() => <Results />} />
-                    <Route path={"/voting"} render={() => <Content /> } />
+                    <Route path={"/voting"} render={(props) => <Content {...props}/> } />
                 </Paper>
             </Container>
         </div>

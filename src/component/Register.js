@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Button, makeStyles, TextField} from "@material-ui/core";
 import axios from "axios";
+import {Redirect, useHistory} from "react-router";
 
 const useStyles = makeStyles({
     root: {
@@ -17,6 +18,7 @@ export const Register = () => {
 
     const [userName, setUserName] = useState('')
     const [user, setUser] = useState({})
+    const [redirect, setRedirect] = useState(false)
 
     const fetchData = async () => {
         await axios.post(
@@ -25,12 +27,18 @@ export const Register = () => {
             if (response.status === 200) {
                 setUser(response.data);
                 //todo: redirect to voting page with user prop
+                setRedirect(true);
             }
         });
     };
 
-    const onClick = () => {
-        fetchData();
+    const doRedirect = () => {
+        if (redirect) {
+            return <Redirect to={{
+                pathname: "/voting",
+                state: {currentUser: user}
+            }} />
+        }
     }
 
     return (
@@ -40,9 +48,10 @@ export const Register = () => {
                            value={userName} onChange={e => setUserName(e.target.value)}/>
             </div>
             <div className={classes.button}>
-                <Button variant="contained" color="primary" type={"submit"} onClick={() => onClick()}>
+                <Button variant="contained" color="primary" type={"submit"} onClick={() => fetchData()}>
                     Proceed
                 </Button>
+                {doRedirect()}
             </div>
         </div>
     )
