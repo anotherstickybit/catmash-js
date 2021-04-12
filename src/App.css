@@ -6,7 +6,6 @@
 #grid > div {
     font-size: 5vw;
     padding: 50px 50px 50px 200px;
-    background: gold;
     justify-content: center;
     align-content: center;
 }

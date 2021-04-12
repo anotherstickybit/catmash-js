@@ -45,13 +45,6 @@ export const Content = (props) => {
 
     useEffect(() => {
         if (Object.keys(user).length > 0) {
-            // const fetchData = async () => {
-            //     const result = await axios(
-            //         'http://localhost:8080/cats/pair/' + user.id,
-            //     );
-            //     setCompare(result.data);
-            // };
-            // fetchData();
             getPair();
         }
     }, [user]);
